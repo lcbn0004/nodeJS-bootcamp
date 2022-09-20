@@ -1,8 +1,10 @@
+////////////////////////////
 // Approach#1
 
 // const EventEmitter = require('events');
 // const myEmitter = new EventEmitter();
 
+////////////////////////////
 // Approach#2
 
 const EventEmitter = require('events');
