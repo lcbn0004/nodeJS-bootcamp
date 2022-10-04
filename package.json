@@ -2,7 +2,7 @@
   "name": "node-tutorial",
   "version": "1.0.0",
   "description": "learning node.js",
-  "main": "index.js",
+  "main": "part7-express.js",
   "scripts": {
     "start": "nodemon index.js",
     "part2": "set UV_THREADPOOL_SIZE=1 & node part2-event-loop.js"
@@ -10,8 +10,9 @@
   "author": "Angelo Alcober",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1",
-    "slugify": "^1.6.5"
+    "express": "^4.16.4",
+    "slugify": "^1.6.5",
+    "superagent": "^8.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.19"
