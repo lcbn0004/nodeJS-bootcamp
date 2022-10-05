@@ -9,6 +9,7 @@ const getAllTour = (req, res) => {
     res.status(200).json({
       status: 'Success',
       results: tours.length,
+      requestedAt: req.requestTime,
       data: {
         tours,
       },

@@ -2,11 +2,29 @@ const e = require('express');
 const express = require('express');
 const fs = require('fs');
 const { addAbortSignal } = require('stream');
+const morgan = require('morgan');
 
 const app = express();
 
-// middleware
+////////////////////////////////
+// Middlewares
+
+app.use(morgan('dev'));
+
+// Middleware for JSON type transactions
 app.use(express.json());
+
+// Middleware that logs 'Hello from the middleware 👋' in transactions
+app.use((req, res, next) => {
+  console.log('Hello from the middleware 👋');
+  next();
+});
+
+// Middleware that adds requestTime to req
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
 
 //////////////////////////////////////////////////////////////////////////////
 // INTRODUCTION
@@ -53,12 +71,6 @@ const postTour = callbacksModule.postTour;
 const patchTour = callbacksModule.patchTour;
 const deleteTour = callbacksModule.deleteTour;
 
-///////////////////////////////////////
-// More simplified CRUD
-
-app.route(allTours).get(getAllTour).post(postTour);
-app.route(tourByID).get(getTourByID).patch(patchTour).delete(deleteTour);
-
 // // GET all tours
 // app.get(allTours, getAllTour);
 // // GET tour
@@ -69,6 +81,12 @@ app.route(tourByID).get(getTourByID).patch(patchTour).delete(deleteTour);
 // app.patch(tourByID, patchTour);
 // // DELETE tour
 // app.delete(tourByID, deleteTour);
+
+///////////////////////////////////////
+// More simplified CRUD
+
+app.route(allTours).get(getAllTour).post(postTour);
+app.route(tourByID).get(getTourByID).patch(patchTour).delete(deleteTour);
 
 //////////////////////////////////////
 // Endpoint - GET - all tours
