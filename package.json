@@ -4,7 +4,7 @@
   "description": "learning node.js",
   "main": "part7-express.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "part2": "set UV_THREADPOOL_SIZE=1 & node part2-event-loop.js"
   },
   "author": "Angelo Alcober",

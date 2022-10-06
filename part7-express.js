@@ -1,8 +1,10 @@
-const e = require('express');
 const express = require('express');
 const fs = require('fs');
-const { addAbortSignal } = require('stream');
+// const { addAbortSignal } = require('stream');
 const morgan = require('morgan');
+
+///////////////////////////////////////////////////////////////////////////////
+//// FINAL CODE
 
 const app = express();
 
@@ -25,6 +27,16 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
   next();
 });
+
+const tourRouter = require('./part7-routes/tourRoutes');
+const userRouter = require('./part7-routes/userRoutes');
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
+
+module.exports = app;
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////
 // INTRODUCTION
@@ -51,25 +63,25 @@ app.use((req, res, next) => {
 // START
 
 // JSON.parse --> converts the JSON string to JavaScript Object
-const tours = JSON.parse(
-  fs.readFileSync(
-    `${__dirname}/4-natours/after-section-06/dev-data/data/tours-simple.json`
-  )
-);
+// const tours = JSON.parse(
+//   fs.readFileSync(
+//     `${__dirname}/4-natours/after-section-06/dev-data/data/tours-simple.json`
+//   )
+// );
 
 //////////////////////////////////////
 // Simplified CRUD operations
 
-const endpointsModule = require(`${__dirname}/part7-endpoints.js`);
-const allTours = endpointsModule.allTours;
-const tourByID = endpointsModule.tourByID;
+// const endpointsModule = require(`${__dirname}/part7-constants/endpoints.js`);
+// const allTours = endpointsModule.allTours;
+// const tourByID = endpointsModule.tourByID;
 
-const callbacksModule = require(`${__dirname}/part7-callbacks.js`);
-const getAllTour = callbacksModule.getAllTour;
-const getTourByID = callbacksModule.getTourByID;
-const postTour = callbacksModule.postTour;
-const patchTour = callbacksModule.patchTour;
-const deleteTour = callbacksModule.deleteTour;
+// const callbacksModule = require(`${__dirname}/part7-controller/tourController.js`);
+// const getAllTour = callbacksModule.getAllTour;
+// const getTourByID = callbacksModule.getTourByID;
+// const postTour = callbacksModule.postTour;
+// const patchTour = callbacksModule.patchTour;
+// const deleteTour = callbacksModule.deleteTour;
 
 // // GET all tours
 // app.get(allTours, getAllTour);
@@ -85,8 +97,8 @@ const deleteTour = callbacksModule.deleteTour;
 ///////////////////////////////////////
 // More simplified CRUD
 
-app.route(allTours).get(getAllTour).post(postTour);
-app.route(tourByID).get(getTourByID).patch(patchTour).delete(deleteTour);
+// app.route(allTours).get(getAllTour).post(postTour);
+// app.route(tourByID).get(getTourByID).patch(patchTour).delete(deleteTour);
 
 //////////////////////////////////////
 // Endpoint - GET - all tours
@@ -208,9 +220,9 @@ app.route(tourByID).get(getTourByID).patch(patchTour).delete(deleteTour);
 //////////////////////////////////////
 // Server creation
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`App running on port: ${port}...`);
-});
+// const port = 3000;
+// app.listen(port, () => {
+//   console.log(`App running on port: ${port}...`);
+// });
 
-exports.tours = tours;
+// exports.tours = tours;
