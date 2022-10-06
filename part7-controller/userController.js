@@ -2,7 +2,7 @@ exports.getAllUser = (req, res) => {
   try {
     console.log('Get all user..');
     // status 200 means OK
-    res.status(200).json({
+    res.status(500).json({
       status: 'Failed',
       message: `This hasn't been initialized!`,
     });
@@ -15,7 +15,7 @@ exports.getUser = (req, res) => {
   try {
     console.log('Get all user..');
     // status 200 means OK
-    res.status(200).json({
+    res.status(500).json({
       status: 'Failed',
       message: `This hasn't been initialized!`,
     });
@@ -28,7 +28,7 @@ exports.createUser = (req, res) => {
   try {
     console.log('Get all user..');
     // status 200 means OK
-    res.status(200).json({
+    res.status(500).json({
       status: 'Failed',
       message: `This hasn't been initialized!`,
     });
@@ -41,7 +41,7 @@ exports.updateUser = (req, res) => {
   try {
     console.log('Get all user..');
     // status 200 means OK
-    res.status(200).json({
+    res.status(500).json({
       status: 'Failed',
       message: `This hasn't been initialized!`,
     });
@@ -54,7 +54,7 @@ exports.deleteUser = (req, res) => {
   try {
     console.log('Get all user..');
     // status 200 means OK
-    res.status(200).json({
+    res.status(500).json({
       status: 'Failed',
       message: `This hasn't been initialized!`,
     });

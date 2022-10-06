@@ -16,6 +16,9 @@ app.use(morgan('dev'));
 // Middleware for JSON type transactions
 app.use(express.json());
 
+// Middleware to display static files
+app.use(express.static(`${__dirname}/4-natours/after-section-06/public`))
+
 // Middleware that logs 'Hello from the middleware 👋' in transactions
 app.use((req, res, next) => {
   console.log('Hello from the middleware 👋');
