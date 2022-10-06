@@ -1,14 +1,23 @@
 const fs = require('fs');
-const data = require(`${__dirname}/part7-express.js`);
+const path = require('path')
+const writeData = require(`../part7-fileConfig/part7-writeToFile.js`);
+
+let reqPath = path.join(__dirname, '../4-natours/after-section-06/dev-data/data/tours-simple.json')
+
+const tours = JSON.parse(
+  fs.readFileSync(
+    reqPath
+  )
+);
 
 const getAllTour = (req, res) => {
   try {
     console.log('Get all tour..');
-    const tours = data.tours;
     // status 200 means OK
     res.status(200).json({
       status: 'Success',
       results: tours.length,
+      requestedAt: req.requestTime,
       data: {
         tours,
       },
@@ -18,9 +27,8 @@ const getAllTour = (req, res) => {
   }
 };
 
-const getTourByID = (req, res) => {
+const getTour = (req, res) => {
   try {
-    const tours = data.tours;
     // converts req.params.id string value to number
     const id = req.params.id * 1;
     console.log(`Get tour with id: ${id}`);
@@ -48,9 +56,8 @@ const getTourByID = (req, res) => {
   }
 };
 
-const postTour = (req, res) => {
+const createTour = (req, res) => {
   try {
-    const tours = data.tours;
     // Creating new tour
     const newId = tours[tours.length - 1].id + 1;
     const newTour = Object.assign(
@@ -62,22 +69,10 @@ const postTour = (req, res) => {
     console.log('Created new tour');
     // Adding tour to the list
     tours.push(newTour);
-
+    writeData.writeToFile(req, res, tours, newTour);
+    console.log(`${__dirname}/4-natours/after-section-06/dev-data/data/tours-simple.json`);
     // JSON.stringiry --> converts the JavaScript Object to JSON string
     // writeFile(path, data, callback)
-    fs.writeFile(
-      `${__dirname}/4-natours/after-section-06/dev-data/data/tours-simple.json`,
-      JSON.stringify(tours),
-      (err) => {
-        // status 201 means created
-        res.status(201).json({
-          status: 'Success',
-          data: {
-            tour: newTour,
-          },
-        });
-      }
-    );
   } catch (err) {
     console.log(err);
   }
@@ -85,7 +80,6 @@ const postTour = (req, res) => {
 
 const patchTour = (req, res) => {
   try {
-    const tours = data.tours;
     // converts req.params.id string value to number
     const id = req.params.id * 1;
     console.log(`Updated tour with id: ${id}`);
@@ -110,7 +104,6 @@ const patchTour = (req, res) => {
 const deleteTour = (req, res) => {
   try {
     console.log('Deleted last entry');
-    const tours = data.tours;
     // converts req.params.id string value to number
     const id = req.params.id * 1;
     if (id > tours.length) {
@@ -121,19 +114,19 @@ const deleteTour = (req, res) => {
       });
     }
     // deletes the entry at the end of the list
+    const last = tours[tours.length - 1];
     tours.pop();
+    writeData.writeToFile(req, res, tours, last);
     // 204 no content
-    res.status(204).json({
-      status: 'Success',
-      'updated tour': null,
-    });
   } catch (err) {
     console.log(err);
   }
 };
 
-module.exports.getAllTour = getAllTour;
-module.exports.getTourByID = getTourByID;
-module.exports.postTour = postTour;
-module.exports.patchTour = patchTour;
-module.exports.deleteTour = deleteTour;
+module.exports = {
+  getAllTour: getAllTour,
+  getTour: getTour,
+  createTour: createTour,
+  updateTour: patchTour,
+  deleteTour: deleteTour,
+};

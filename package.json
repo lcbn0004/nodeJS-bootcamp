@@ -4,13 +4,14 @@
   "description": "learning node.js",
   "main": "part7-express.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "part2": "set UV_THREADPOOL_SIZE=1 & node part2-event-loop.js"
   },
   "author": "Angelo Alcober",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "morgan": "^1.9.1",
     "slugify": "^1.6.5",
     "superagent": "^8.0.0"
   },
